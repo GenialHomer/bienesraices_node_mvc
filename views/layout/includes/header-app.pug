@@ -1,0 +1,64 @@
+header.bg-indigo-600.p-4
+    .container.mx-auto.flex.justify-between.items-center
+        a(href="/") 
+            h1.text-2xl.text-white.font-extrabold.text-center Bienes 
+                span.font-normal Raices
+        
+        // Botón del menú hamburguesa para pantallas pequeñas
+        button(class="block md:hidden text-white", id="menuBtn")
+            svg(width="24" height="24", fill="none", viewBox="0 0 24 24", stroke="currentColor", stroke-width="2", stroke-linecap="round", stroke-linejoin="round")
+                path(d="M4 6h16M4 12h16m-7 6h7", class="w-6 h-6")
+
+        // Navegación para pantallas grandes
+        nav(class='my-5 text-sm md:flex md:items-center md:gap-3 font-bold text-white hidden')
+            a(href='/auth/registro') Crear Cuenta
+            a(href='/auth/login') Iniciar Sesión 
+
+    // Sección para el menú y buscador en pantallas grandes
+    div(class="bg-indigo-700 py-5 hidden lg:block")
+        div(class="container mx-auto flex justify-between  items-center")
+            nav(class="flex gap-4")
+                a(href="/categorias/1" class="text-sm font-bold uppercase text-white") Casas
+                a(href="/categorias/2" class="text-sm font-bold uppercase text-white") Departamentos
+                a(href="/categorias/3" class="text-sm font-bold uppercase text-white") Bodegas
+                a(href="/categorias/4" class="text-sm font-bold uppercase text-white") Terrenos
+                a(href="/categorias/5" class="text-sm font-bold uppercase text-white") Cabañas
+
+            form(action="/buscador", method="POST" class="flex gap-3 items-center")
+                input(type="hidden" name="_csrf" value=csrfToken)
+                label(for="termino" class="text-sm uppercase font-bold text-white") Búsqueda 
+                input(type="text" id="termino" name="termino" placeholder="buscar propiedades" class="p-2 rounded-lg shadow text-sm")
+                input(type="submit", class="bg-indigo-800 hover:bg-indigo-400 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm" value="buscar")
+
+    // Menú desplegable para pantallas pequeñas (hamburguesa)
+    nav(class="hidden md:hidden mt-5 p-5 flex-col gap-4 border-t-2 items-center font-bold text-white" id="menuItems")
+        a(href="/categorias/1" class="text-sm font-bold uppercase text-white") Casas
+        a(href="/categorias/2" class="text-sm font-bold uppercase text-white") Departamentos
+        a(href="/categorias/3" class="text-sm font-bold uppercase text-white") Bodegas
+        a(href="/categorias/4" class="text-sm font-bold uppercase text-white") Terrenos
+        a(href="/categorias/5" class="text-sm font-bold uppercase text-white") Cabañas
+        
+        form(action="/buscador", method="POST" class="flex gap-3 items-center")
+            input(type="hidden" name="_csrf" value=csrfToken)
+            label(for="termino" class="text-sm uppercase font-bold text-white") Búsqueda 
+            input(type="text" id="termino" name="termino" placeholder="buscar propiedades" class="p-2 rounded-lg shadow text-sm")
+            input(type="submit", class="bg-indigo-800 hover:bg-indigo-400 rounded-lg text-white uppercase font-bold p-2 cursor-pointer text-sm" value="buscar")
+
+script.
+    const menuBtn = document.getElementById("menuBtn");
+
+    if (menuBtn) {
+        menuBtn.addEventListener("click", function() {
+            const menu = document.getElementById("menuItems");
+
+            if (menu) {
+                if (menu.classList.contains("hidden")) {
+                    menu.classList.add("flex");
+                    menu.classList.remove("hidden");
+                } else {
+                    menu.classList.add("hidden");
+                    menu.classList.remove("flex");
+                }
+            }
+        });
+    }
