@@ -45,7 +45,8 @@ const emailOlvidePassword = async (datos) => {
 
   //   enviar el email
   await transport.sendMail({
-      from: 'BienesRaices.com',
+      from: `"BienesRaices.com" <${process.env.EMAIL_USER}>`,
+
       to: email,
       subject: 'Reestablece tu Password en BienesRaices.com',
       text: 'Reestablece tu Password en BienesRaices.com',
